@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:vm="clr-namespace:App1.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             x:Class="App1.Views.CustomerOrderView">
+    <ContentPage.BindingContext>
+        <vm:OrdersDetailViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid Margin="50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="AUTO"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" FontSize="Title" Text="Customer Id:"/>
+                <Entry Grid.Row="0" Grid.Column="1" WidthRequest="50" Text="{Binding CustomerId}"/>
+                <Button Grid.Row="0" Grid.Column="2" Text="Search" Command="{Binding SearchCommand}"/>
+            <ListView  Grid.Row="1" Grid.ColumnSpan="4" HasUnevenRows="True" SelectionMode="None" 
+                    BackgroundColor="Transparent"
+                      SeparatorColor="Blue"
+                      ItemsSource="{Binding CustomerOrders}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="AUTO"/>
+                                    <RowDefinition Height="AUTO"/>
+                                    <RowDefinition Height="AUTO"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                               
+                                    <Label Grid.Row="0" Grid.Column="0" FontSize="Caption" FontAttributes="Bold" Text="Order Id:"/>
+                                    <Label Grid.Row="0" Grid.Column="1"  Text="{Binding CustomerOrder.OrderId}"/>
+                                    <Label Grid.Row="0" Grid.Column="2" Text="Customer:" FontAttributes="Bold"/>
+                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding CustomerOrder.CustomerName}"/>
+                                    <Label Grid.Row="0" Grid.Column="4" Text="{Binding CustomerOrder.OrderPlaced}"/>
+                              
+                                <ListView  Grid.Row="1" Grid.ColumnSpan="4" SelectionMode="None" 
+                                             HasUnevenRows="True"
+                                              ItemsSource="{Binding CustomerOrder.OrderLineItems}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="AUTO"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Text="{Binding ProductName}" Grid.Row="0" Grid.Column="0"/>
+                                                    <Label Text="{Binding ProductPrice}" Grid.Row="0" Grid.Column="1"/>
+                                                    <Label Text="{Binding ProductQuantity}" Grid.Row="0" Grid.Column="2"/>
+                                                </Grid>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                
+                                <Label Grid.Row="2" Grid.Column="0" Text="Total:" FontSize="Subtitle"/>
+                                <Label Grid.Row="2" Grid.Column="1" FontAttributes="Bold" FontSize="Subtitle" Text="{Binding TotalOrder}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+           
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
